@@ -1,6 +1,27 @@
 canvas{
-    border: 1px solid black;
+    border: 5 px solid black;
     background-color:lightcoral;
 }
 body{background-image: linear-gradient(to right,goldenrod, purple)
 }
+.wall{
+    position: absolute;
+    background-color:wheat;
+    transform-origin: top center;
+}
+.wall:before,
+    .wall::after{
+        display: block;
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-color: lightcoral;
+        border-radius: 50%;
+    position: absolute;
+    }
+    .wall:before{
+        top: -10px;
+    }
+    wall::after{
+        bottom: -10px;
+    }
