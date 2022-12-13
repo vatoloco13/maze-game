@@ -1,116 +1,57 @@
-const mazeElement = document.querySelector('.maze')
-const pathW = 25;
-const wallW = 10;
-
-const walls = [
-
-    {column: 0, row: 0, horizantal:true, length: 10},
-    {column: 0, row: 0, horizantal:false, length:9},
-    {column: 0, row: 9, horizantal:true, length: 10},
-    {column: 10, row: 0, horizantal:false, length:9},
-    
-        // Border
-        { column: 0, row: 0, horizontal: true, length: 10 },
-        { column: 0, row: 0, horizontal: false, length: 9 },
-        { column: 0, row: 9, horizontal: true, length: 10 },
-        { column: 10, row: 0, horizontal: false, length: 9 },
-      
-        // Horizontal lines starting in 1st column
-        { column: 0, row: 6, horizontal: true, length: 1 },
-        { column: 0, row: 8, horizontal: true, length: 1 },
-      
-        // Horizontal lines starting in 2nd column
-        { column: 1, row: 1, horizontal: true, length: 2 },
-        { column: 1, row: 7, horizontal: true, length: 1 },
-      
-        // Horizontal lines starting in 3rd column
-        { column: 2, row: 2, horizontal: true, length: 2 },
-        { column: 2, row: 4, horizontal: true, length: 1 },
-        { column: 2, row: 5, horizontal: true, length: 1 },
-        { column: 2, row: 6, horizontal: true, length: 1 },
-      
-        // Horizontal lines starting in 4th column
-        { column: 3, row: 3, horizontal: true, length: 1 },
-        { column: 3, row: 8, horizontal: true, length: 3 },
-      
-        // Horizontal lines starting in 5th column
-        { column: 4, row: 6, horizontal: true, length: 1 },
-      
-        // Horizontal lines starting in 6th column
-        { column: 5, row: 2, horizontal: true, length: 2 },
-        { column: 5, row: 7, horizontal: true, length: 1 },
-      
-        // Horizontal lines starting in 7th column
-        { column: 6, row: 1, horizontal: true, length: 1 },
-        { column: 6, row: 6, horizontal: true, length: 2 },
-      
-        // Horizontal lines starting in 8th column
-        { column: 7, row: 3, horizontal: true, length: 2 },
-        { column: 7, row: 7, horizontal: true, length: 2 },
-      
-        // Horizontal lines starting in 9th column
-        { column: 8, row: 1, horizontal: true, length: 1 },
-        { column: 8, row: 2, horizontal: true, length: 1 },
-        { column: 8, row: 3, horizontal: true, length: 1 },
-        { column: 8, row: 4, horizontal: true, length: 2 },
-        { column: 8, row: 8, horizontal: true, length: 2 },
-      
-        // Vertical lines after the 1st column
-        { column: 1, row: 1, horizontal: false, length: 2 },
-        { column: 1, row: 4, horizontal: false, length: 2 },
-      
-        // Vertical lines after the 2nd column
-        { column: 2, row: 2, horizontal: false, length: 2 },
-        { column: 2, row: 5, horizontal: false, length: 1 },
-        { column: 2, row: 7, horizontal: false, length: 2 },
-      
-        // Vertical lines after the 3rd column
-        { column: 3, row: 0, horizontal: false, length: 1 },
-        { column: 3, row: 4, horizontal: false, length: 1 },
-        { column: 3, row: 6, horizontal: false, length: 2 },
-      
-        // Vertical lines after the 4th column
-        { column: 4, row: 1, horizontal: false, length: 2 },
-        { column: 4, row: 6, horizontal: false, length: 1 },
-      
-        // Vertical lines after the 5th column
-        { column: 5, row: 0, horizontal: false, length: 2 },
-        { column: 5, row: 6, horizontal: false, length: 1 },
-        { column: 5, row: 8, horizontal: false, length: 1 },
-      
-        // Vertical lines after the 6th column
-        { column: 6, row: 4, horizontal: false, length: 1 },
-        { column: 6, row: 6, horizontal: false, length: 1 },
-      
-        // Vertical lines after the 7th column
-        { column: 7, row: 1, horizontal: false, length: 4 },
-        { column: 7, row: 7, horizontal: false, length: 2 },
-      
-        // Vertical lines after the 8th column
-        { column: 8, row: 2, horizontal: false, length: 1 },
-        { column: 8, row: 4, horizontal: false, length: 2 },
-      
-        // Vertical lines after the 9th column
-        { column: 9, row: 1, horizontal: false, length: 1 },
-        { column: 9, row: 5, horizontal: false, length: 2 }
-].map((wall)=> ({
-    x: wall.column * (pathW + wallW),
-    y: wall.row * (pathW + wallW),
-    horizantal: wall.horizantal,
-    length: wall.length * (pathW + wallW),
-}));
-
-walls.forEach(({x,y,horizantal,length})=> {
-    const wall = document.createElement("canvas");
-    wall.setAttribute("class", "wall");
-    wall.style.cssText =` 
-    left: ${x}px;
-    top: ${y}px;
-    width: ${wallW}px;
-    height: ${wallW}px;
-    transform (${horizantal ? -90 : 0}deg);
-    `;
-    mazeElement.appendChild(wall);
-});
-    
-
+var myObstacles = [];
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+      this.canvas.width = 1500;
+      this.canvas.height = 700;
+      this.context = this.canvas.getContext("2d");
+      document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+      this.interval = setInterval(updateGameArea, 20);
+    },
+    clear : function() {
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+      clearInterval(this.interval);
+    }
+  }
+  
+  function component(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.update = function() {
+      ctx = myGameArea.context;
+      ctx.fillStyle = color;
+      ctx.fillRect(this.width, this.height);
+    }
+    }
+    this.crashWith = function(otherobj) {
+      var myleft = this.x;
+      var myright = this.x + (this.width);
+      var mytop = this.y;
+      var mybottom = this.y + (this.height);
+      var otherleft = otherobj.x;
+      var otherright = otherobj.x + (otherobj.width);
+      var othertop = otherobj.y;
+      var otherbottom = otherobj.y + (otherobj.height);
+      var crash = true;
+      if ((mybottom < othertop) ||
+      (mytop > otherbottom) ||
+      (myright < otherleft) ||
+      (myleft > otherright)) {
+        crash = false;
+      }
+      return crash;
+    }
+  
+  
+  function updateGameArea() {
+    if (myGamePiece.crashWith(myObstacle)) {
+      myGameArea.stop();
+    } else {
+      myGameArea.clear();
+      myObstacle.update();
+      myGamePiece.newPos();
+      myGamePiece.update();
+    }
+  }<script src="index.js"></script>
