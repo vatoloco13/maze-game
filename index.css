@@ -1,10 +1,7 @@
 canvas{
     border: 1 px solid black;
-    background-color: tan;
 }
-body {
-    background-image: linear-gradient(to right,#492d62,#18528c)
-}
+
 h1{
     color: gold;
     font-weight: bold;
