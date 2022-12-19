@@ -1,16 +1,24 @@
 <!DOCTYPE html>
+<html>
+
 <head>
-    <html lang="en">
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="index.css">
-   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
+
 </head>
+
 <body>
- <h1>Maze Game</h1>
- 
-<canvas id="canvas" width="616 " height="556">
-</canvas>
- <script src="index.js"></script>
- <script src="maze-g.js"></script>
+  <h1>Maze Game</h1>
+  <div>
+    <button onclick="generateMaze()">New Maze</button>
+  </div>
+  
+  
+    <script src="maze-g.js"></script>
+  <script src="index.js"></script>
 </body>
+
 </html>
