@@ -33,12 +33,6 @@ function randomizeColors() {
 }
 
 function setup() {
-  // dynamic fullscreen setup
-  // createCanvas(window.innerWidth,window.innerHeight);
-  // cols=Math.floor(width / cellWidth);
-  // rows=Math.floor(height / cellWidth);
-  
-  // fixed size setup
   colorMode(HSB);
   var w = cols * cellWidth;
   var h = rows * cellWidth; 
@@ -170,7 +164,7 @@ function generateMaze() {
     
   }
   
-  //console.log("MAZE GENERATED IN " + countSteps + " STEPS.");
+
   
   mg.background(BG_COLOR);
   for (var i = 0; i < cells.length; i++) {
@@ -225,8 +219,7 @@ function selectUnvisitedNeighbor(ci) {
       neighbors.push(i);
     }
   }
-    //console.log("neighbors of " + getX(currentCell) + ":" + getY(currentCell));
-  //console.log(neighbors);
+    
   
   return random(neighbors);
 }

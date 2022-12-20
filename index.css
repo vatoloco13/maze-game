@@ -1,9 +1,13 @@
-
+h1{
+  background-image: linear-gradient(to right, transparent, darkblue,tan);
+  font-weight: 100;
+  color:yellowgreen;
+}
 body{
     position: absolute;
     margin:0;
-    background:#eee;
-    background:linear-gradient(to bottom, #eee, #ddd);
+    background-color:cornflowerblue;
+    z-index: 2;
     left: 0;top: 0;bottom: 0;right: 0;
     text-align: center;
   }
@@ -11,6 +15,26 @@ body{
     display: block;
     margin: 1em auto;
   }
-  button{
-    
-  }
+button {
+    padding: 20px 40px;
+}
+
+.button:hover {
+  color: #fff;
+  background-color: #9d14a0;
+  box-shadow: rgba(0,0,0,.25) 0 8px 15px;
+  transform: translateY (-5px)
+}
+.button:active {
+  color: #4922bb;
+  transform: translateY(0);
+  border: 0 solid;
+  box-shadow: inset 4px 4px 12px #264879,inset -4px -4px 12px #264879
+}
+p{
+  color:teal !important;
+  font-size: larger !important;
+  font-weight: 300;
+  font-style: oblique;
+
+}
